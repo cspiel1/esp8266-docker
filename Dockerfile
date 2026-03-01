@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
     git wget curl \
-    python2 python-is-python2 \
+    python2 python-is-python2 python2-dev \
     flex bison gawk \
     libtool automake autoconf \
     texinfo help2man \
@@ -44,7 +44,7 @@ WORKDIR /opt/esp-open-sdk
 
 COPY bash-version.patch /tmp/bash-version.patch
 RUN patch -p1 -d crosstool-NG < /tmp/bash-version.patch
-COPY companion-libs.patch /tmp/isl-url.patch
+COPY companion-libs.patch /tmp
 RUN patch -p1 -d crosstool-NG < /tmp/companion-libs.patch
 
 RUN chown -R builder:builder /opt/esp-open-sdk
