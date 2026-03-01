@@ -44,8 +44,8 @@ WORKDIR /opt/esp-open-sdk
 
 COPY bash-version.patch /tmp/bash-version.patch
 RUN patch -p1 -d crosstool-NG < /tmp/bash-version.patch
-COPY isl-url.patch /tmp/isl-url.patch
-RUN patch -p1 -d crosstool-NG < /tmp/isl-url.patch
+COPY companion-libs.patch /tmp/isl-url.patch
+RUN patch -p1 -d crosstool-NG < /tmp/companion-libs.patch
 
 RUN chown -R builder:builder /opt/esp-open-sdk
 
