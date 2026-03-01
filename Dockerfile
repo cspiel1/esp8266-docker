@@ -40,7 +40,13 @@ WORKDIR /opt
 # esp-open-sdk
 RUN git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
 RUN git clone https://github.com/SmingHub/Sming.git && \
-cd Sming && git checkout 4.1.0 -b v4.1.0
+    cd Sming && git checkout 4.2.0 -b v4.2.0
+RUN git clone https://github.com/espressif/ESP8266_NONOS_SDK.git && \
+    cd ESP8266_NONOS_SDK && git checkout v3.0.5 -b v3.0.5
+
+WORKDIR /opt/Sming
+COPY patches/sming.patch /tmp
+RUN patch -p1 < /tmp/sming.patch
 
 WORKDIR /opt/esp-open-sdk
 
@@ -51,6 +57,7 @@ RUN patch -p1 -d crosstool-NG < /tmp/companion-libs.patch
 
 RUN chown -R builder:builder /opt/esp-open-sdk
 RUN chown -R builder:builder /opt/Sming
+RUN chown -R builder:builder /opt/ESP8266_NONOS_SDK
 
 USER builder
 
@@ -62,6 +69,7 @@ ENV HOME=/home/builder
 ENV ESP_HOME=/opt/esp-open-sdk
 ENV PATH=$ESP_HOME/xtensa-lx106-elf/bin:$PATH
 ENV SMING_HOME=/opt/Sming/Sming
+ENV ESP8266_NONOS_SDK=/opt/ESP8266_NONOS_SDK
 
 WORKDIR /workspace
 
