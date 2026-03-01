@@ -39,26 +39,30 @@ WORKDIR /opt
 
 # esp-open-sdk
 RUN git clone --recursive https://github.com/pfalcon/esp-open-sdk.git
+RUN git clone https://github.com/SmingHub/Sming.git && \
+cd Sming && git checkout 4.1.0 -b v4.1.0
 
 WORKDIR /opt/esp-open-sdk
 
-COPY bash-version.patch /tmp/bash-version.patch
+COPY patches/bash-version.patch /tmp/bash-version.patch
 RUN patch -p1 -d crosstool-NG < /tmp/bash-version.patch
-COPY companion-libs.patch /tmp
+COPY patches/companion-libs.patch /tmp
 RUN patch -p1 -d crosstool-NG < /tmp/companion-libs.patch
 
 RUN chown -R builder:builder /opt/esp-open-sdk
+RUN chown -R builder:builder /opt/Sming
 
 USER builder
 
 # Build toolchain (takes 30–60 min first time)
-# RUN make STANDALONE=y
+RUN make STANDALONE=y
 
 # Environment
 ENV HOME=/home/builder
 ENV ESP_HOME=/opt/esp-open-sdk
 ENV PATH=$ESP_HOME/xtensa-lx106-elf/bin:$PATH
+ENV SMING_HOME=/opt/Sming/Sming
 
-# WORKDIR /workspace
+WORKDIR /workspace
 
 CMD ["/bin/bash"]
