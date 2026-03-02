@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     python3 python3-dev python3-pip python3-venv \
     flex bison gawk libtool automake autoconf \
     texinfo help2man libncurses5-dev libexpat1-dev unzip \
-    sudo ca-certificates python3 python3-pip \
+    sudo ca-certificates \
     screen minicom vim gperf libtool-bin \
     && rm -rf /var/lib/apt/lists/*
 
