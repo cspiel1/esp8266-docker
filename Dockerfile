@@ -41,6 +41,7 @@ USER ubuntu
 WORKDIR /opt/Sming
 
 RUN Tools/install.sh esp8266
+RUN sudo apt-get install -y python3-serial
 
 
 RUN git config --global user.email "ubuntu@example.com" && \
