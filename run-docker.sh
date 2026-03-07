@@ -24,6 +24,6 @@ if [ -d "$SMING_PATH" ]; then
 fi
 
 docker run -it --rm \
-  --device=/dev/ftdi_uart \
+  --device=/dev/ttyUSB0 \
   $MAPPED_PATHS \
   esp8266-sming
