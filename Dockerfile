@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     flex bison gawk libtool automake autoconf \
     texinfo help2man libncurses5-dev libexpat1-dev unzip \
     sudo ca-certificates \
-    screen minicom vim gperf libtool-bin \
+    screen minicom vim gperf libtool-bin python3-serial bear \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -41,7 +41,6 @@ USER ubuntu
 WORKDIR /opt/Sming
 
 RUN Tools/install.sh esp8266
-RUN sudo apt-get install -y python3-serial
 
 
 RUN git config --global user.email "ubuntu@example.com" && \
