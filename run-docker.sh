@@ -23,7 +23,10 @@ if [ -d "$SMING_PATH" ]; then
   MAPPED_PATHS="$MAPPED_PATHS -v $SMING_PATH:/opt/Sming"
 fi
 
+DEV=$( ls /dev/ttyUSB* 2>/dev/null | tail -n 1 )
+GID=$( stat -c '%g' $DEV )
 docker run -it --rm \
-  --device=/dev/ttyUSB0 \
+  --device=$DEV \
+  --group-add $GID \
   $MAPPED_PATHS \
   esp8266-sming
